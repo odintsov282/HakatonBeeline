@@ -1,4 +1,7 @@
 :root {
+  /* font-family */
+  --font-family: "Inter", sans-serif;
+
   /* colors */
   --bg-color: #eef2f6;
   --button-color: #ebebeb82;
