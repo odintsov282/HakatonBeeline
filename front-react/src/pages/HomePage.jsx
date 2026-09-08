@@ -4,15 +4,9 @@ const HomePage = () => {
     return (
         <>
         <NavLink
-        to="/reg"
+        to="/auth"
         >
-            Регистрация
-        </NavLink>
-
-        <NavLink
-        to="/log"
-        >
-            Вход
+            Войти или зарегистрироваться
         </NavLink>
         </>
     )

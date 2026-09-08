@@ -47,6 +47,11 @@
     color var(--transition-time);
 }
 
+.form__button--active {
+  background-color: var(--accent-color);
+  color: var(--main-color);
+}
+
 @media (any-hover: hover) {
   .form__button:hover {
     background-color: var(--accent-color);
