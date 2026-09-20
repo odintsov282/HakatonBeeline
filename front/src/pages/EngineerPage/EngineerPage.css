@@ -1,0 +1,130 @@
+.menu__applications-info {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 115px;
+  margin-bottom: 15px;
+}
+
+.menu__applications-title {
+  font-size: 18px;
+  color: var(--text-seventh-color);
+  margin-bottom: 10px;
+}
+
+.menu__applications-button {
+  background-color: var(--bg-header-color);
+  color: var(--text-main-color);
+  padding: 14px 17px;
+  border-radius: 15px;
+}
+
+.menu__applications-cards {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 65px;
+}
+
+.menu__open-card {
+  border: 2px solid var(--bg-header-color);
+  border-radius: 20px;
+  padding: 10px 24px 24px;
+}
+
+.menu__open-card-title {
+  font-size: 18px;
+  color: var(--text-fifth-color);
+  margin-bottom: 12px;
+}
+
+.menu__open-card-data,
+.menu__open-card-time,
+.menu__open-card-service {
+  font-size: 14px;
+  color: var(--text-seventh-color);
+}
+
+.menu__open-card-data-accent,
+.menu__open-card-time-accent {
+  color: var(--text-fifth-color);
+}
+
+.menu__open-card-service {
+  margin-bottom: 16px;
+}
+
+.menu__open-card-equipments-title {
+  font-size: 10px;
+  color: var(--text-main-color);
+  margin-bottom: 10px;
+}
+
+.menu__open-card-equipments {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.menu__open-card-equipment {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--bg-button-color-1);
+  border-radius: 15px;
+  padding: 7px 14px;
+}
+
+.menu__open-card-equipment-title {
+  font-size: 10px;
+  color: var(--text-main-color);
+}
+
+.menu__open-card-equipment-quantity {
+  font-size: 9px;
+  text-align: center;
+  color: var(--text-secondary-color);
+  background-color: #00e676;
+  border-radius: 20px;
+  padding: 6px 16px;
+}
+
+.menu__close-cards {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 65px;
+}
+
+.menu__close-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--bg-color-1);
+  border: 1px solid var(--border-color-2);
+  border-radius: 15px;
+  padding: 12px 24px 18px;
+}
+
+.menu__close-card-title {
+  font-size: 18px;
+  color: var(--text-fifth-color);
+}
+
+.menu__close-card-description {
+  font-size: 14px;
+  color: var(--text-seventh-color);
+}
+
+.menu__close-card-status {
+  font-size: 12px;
+  text-align: center;
+  color: var(--text-status-color);
+  background-color: var(--border-color-2);
+  border-radius: 10px;
+  padding: 5px 19px;
+}

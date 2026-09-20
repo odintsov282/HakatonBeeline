@@ -1,0 +1,60 @@
+.main__title {
+  color: var(--main-color);
+  font-size: 60px;
+}
+
+.form__container {
+  background-color: var(--secondary-color);
+  border-radius: 38px;
+  padding: 110px 67px 53px;
+  margin-bottom: 200px;
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 90px;
+}
+
+.form__fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: 58px;
+  border: none;
+}
+
+.form__input {
+  width: 671px;
+  font-size: 30px;
+  padding-left: 3px;
+  padding-bottom: 13px;
+  border-bottom: 1px solid var(--main-disabled-color);
+}
+
+.form__button {
+  max-width: 451px;
+  background-color: var(--button-color);
+  border-radius: 38px;
+  color: var(--main-disabled-color);
+  font-size: 25px;
+  padding: 31px 117px;
+  text-wrap: nowrap;
+  text-align: center;
+  transition:
+    background-color var(--transition-time),
+    color var(--transition-time);
+}
+
+.form__button--active {
+  background-color: var(--accent-color);
+  color: var(--main-color);
+}
+
+@media (any-hover: hover) {
+  .form__button:hover {
+    background-color: var(--accent-color);
+    color: var(--main-color);
+  }
+}

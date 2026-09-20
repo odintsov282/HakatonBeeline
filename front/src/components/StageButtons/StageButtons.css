@@ -1,0 +1,52 @@
+.menu__footer-title {
+  font-size: 18px;
+  color: #6b7280;
+  margin-bottom: 13px;
+}
+
+.menu__footer-buttons-stages {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.menu__footer-button {
+  padding: 12px 42px;
+  border-radius: 15px;
+  color: var(--text-main-color);
+}
+
+.button__title {
+  font-size: 16px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.button__description {
+  font-size: 8px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.menu__footer-button-take,
+.menu__footer-button-stop {
+  background-color: #d9d9d9;
+}
+
+.menu__footer-button-start {
+  background-color: var(--bg-header-color);
+}
+
+.menu__footer-button-revoke {
+  width: 100%;
+  padding: 16px 26px;
+  border-radius: 15px;
+  font-size: 14px;
+  text-align: center;
+  white-space: nowrap;
+  color: var(--text-secondary-color);
+  background-color: #dc2626;
+  margin-bottom: 20px;
+}
