@@ -1,16 +1,48 @@
-# React + Vite
+# Beeline Business — интеллектуальное планирование маршрутов инженеров
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Хакатон-проект: веб-сервис для диспетчеров и полевых инженеров Beeline Business,
+с учётом временных окон визитов и сложности работ.
 
-Currently, two official plugins are available:
+## Стек
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- React 19 + Vite
+- react-router-dom — роутинг между страницами
+- axios — HTTP-запросы (единый инстанс в `src/api/http.js`)
+- yup — валидация форм
+- classnames — условные CSS-классы
+- sass — стили модалок (частично, остальное на чистом CSS)
 
-## React Compiler
+## Структура
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```
+src/
+  api/          — весь HTTP-слой (см. BACKEND_INTEGRATION.md)
+  components/   — переиспользуемые части UI и модалки
+  pages/        — страницы (Auth, Dispatcher, Engineer, Home)
+  styles/       — глобальные стили и стили отдельных "блоков" вёрстки
+```
 
-## Expanding the ESLint configuration
+## Роли и страницы
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Диспетчер** (`/dispatcher`) — список мастеров и их загрузка, события
+  перепланирования (аварии, недоступность инженера), очередь заявок
+  (нераспределённые/распределённые), создание срочных заявок, управление инженерами.
+- **Инженер** (`/engineer`) — список заявок на день с активной заявкой на виду,
+  этапы выполнения работы.
+
+Роль пользователя приходит после логина (`/auth`) и определяет, куда его вести.
+
+## Запуск
+
+```bash
+npm install
+cp .env.example .env   # и указать в .env реальный адрес бэкенда
+npm run dev
+```
+
+## Статус интеграции с бэкендом
+
+Сейчас все данные на страницах — моки (`mockData.js` рядом с каждым компонентом/страницей).
+Полный список ожидаемых эндпоинтов, форматов запросов/ответов и порядок подключения —
+в [`BACKEND_INTEGRATION.md`](./BACKEND_INTEGRATION.md). В самом коде компонентов места,
+где мок нужно будет заменить на реальный запрос, помечены комментарием `🔌 БЭКЕНД`.

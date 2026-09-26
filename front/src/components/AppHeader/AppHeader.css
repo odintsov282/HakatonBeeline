@@ -18,6 +18,10 @@
 }
 
 .header__link-profile {
+  border: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
   background-color: var(--bg-profile-color);
   border-radius: 50px;
   padding: 13px 18px;

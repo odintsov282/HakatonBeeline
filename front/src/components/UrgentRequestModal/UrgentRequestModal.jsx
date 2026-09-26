@@ -1,133 +1,90 @@
 import { useState } from 'react'
 import { createPortal } from 'react-dom'
 import cn from 'classnames'
-import { IconExclamationMark, IconChevronDown } from '@tabler/icons-react'
-import './UrgentRequestModal.scss'
 
-const initialForm = {
-    priority: 'high',
-    clientName: '',
-    phone: '',
-    address: '',
-    faultType: '',
-    when: '',
-}
-
+// Форма срочной заявки диспетчера. Сама модалка данные никуда не отправляет —
+// собирает form + priority и отдаёт наверх через onSubmit; вызов createUrgentRequest
+// из '../../api/dispatcher' будет в DispatcherPage.jsx, там же, где она открывается
+// (см. пометку 🔌 БЭКЕНД в DispatcherPage.jsx рядом с <UrgentRequestModal>).
 const UrgentRequestModal = ({ isOpen, onClose, onSubmit }) => {
-    const [form, setForm] = useState(initialForm)
+    const [priority, setPriority] = useState('high')
+    const [form, setForm] = useState({ client: '', phone: '', address: '', fault: '', when: '' })
 
     if (!isOpen) return null
 
-    const handleChange = (e) => {
-        const { name, value } = e.target
-        setForm((prev) => ({ ...prev, [name]: value }))
-    }
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        onSubmit(form)
-        setForm(initialForm)
-        onClose()
-    }
+    const set = (key) => (e) => setForm({ ...form, [key]: e.target.value })
 
     return createPortal(
-        <div className="urgent-modal">
-            <div className="overlay" onClick={onClose}>
-                <form
-                    className="modal"
-                    onClick={(e) => e.stopPropagation()}
-                    onSubmit={handleSubmit}
-                >
-                    <div className="modal-header">
-                        <div className="header-left">
-                            <div className="icon-circle">
-                                <IconExclamationMark size={18} stroke={2.5} />
-                            </div>
-                            <div className="header-text">
-                                <h2>Создание заявки</h2>
-                                <p>Аварийный ввод задачи с автоматическим пересчетом маршрута</p>
-                            </div>
+        <div className="urgent-overlay" style={{ position: 'fixed', inset: 0, zIndex: 1000 }}>
+            <div className="urgent-modal">
+                <div className="urgent-modal-header">
+                    <div className="urgent-header-left">
+                        <div className="urgent-icon-circle">
+                            <i className="fa-solid fa-exclamation"></i>
                         </div>
-                        <button type="button" className="close-btn" onClick={onClose}>
-                            &times;
-                        </button>
-                    </div>
-
-                    <div className="modal-body">
-                        <div className="form-group">
-                            <p className="form-title">УРОВЕНЬ ПРИОРИТЕТА</p>
-                            <div className="priority-buttons">
-                                <button
-                                    type="button"
-                                    className={cn('priority-btn', { active: form.priority === 'high' })}
-                                    onClick={() => setForm((p) => ({ ...p, priority: 'high' }))}
-                                >
-                                    <span className="dot"></span>
-                                    Высокий (авария)
-                                </button>
-                                <button
-                                    type="button"
-                                    className={cn('priority-btn', { active: form.priority === 'low' })}
-                                    onClick={() => setForm((p) => ({ ...p, priority: 'low' }))}
-                                >
-                                    низкий
-                                </button>
-                            </div>
-                        </div>
-
-                        <div className="form-group">
-                            <label className="form-label" htmlFor="clientName">Имя клиента</label>
-                            <input id="clientName" name="clientName" type="text" className="form-input"
-                                value={form.clientName} onChange={handleChange} />
-                        </div>
-
-                        <div className="form-group">
-                            <label className="form-label" htmlFor="phone">Номер телефона</label>
-                            <input id="phone" name="phone" type="tel" className="form-input"
-                                value={form.phone} onChange={handleChange} />
-                        </div>
-
-                        <div className="form-group">
-                            <label className="form-label" htmlFor="address">
-                                Адрес объекта <span className="required">*</span>
-                            </label>
-                            <input id="address" name="address" type="text" className="form-input"
-                                required value={form.address} onChange={handleChange} />
-                        </div>
-
-                        <div className="form-group">
-                            <label className="form-label" htmlFor="faultType">Тип неисправности</label>
-                            <div className="select-wrapper">
-                                <select id="faultType" name="faultType" className="form-input"
-                                    value={form.faultType} onChange={handleChange}>
-                                    <option value=""></option>
-                                    <option value="internet">Нет интернета</option>
-                                    <option value="tv">Нет ТВ</option>
-                                    <option value="phone">Нет телефонии</option>
-                                </select>
-                                <IconChevronDown size={14} className="select-icon" />
-                            </div>
-                        </div>
-
-                        <div className="form-group">
-                            <label className="form-label" htmlFor="when">Дата, время</label>
-                            <div className="select-wrapper">
-                                <select id="when" name="when" className="form-input"
-                                    value={form.when} onChange={handleChange}>
-                                    <option value=""></option>
-                                    <option value="now">Сейчас</option>
-                                    <option value="later">Позже</option>
-                                </select>
-                                <IconChevronDown size={14} className="select-icon" />
-                            </div>
+                        <div className="urgent-header-text">
+                            <h2>Создание заявки</h2>
+                            <p>Аварийный ввод задачи с автоматическим пересчетом маршрута</p>
                         </div>
                     </div>
+                    <button className="urgent-close" onClick={onClose}>&times;</button>
+                </div>
 
-                    <div className="modal-footer">
-                        <button type="submit" className="btn-submit">Назначить и перестроить</button>
-                        <button type="button" className="btn-cancel" onClick={onClose}>Отмена</button>
+                <div className="urgent-modal-body">
+                    <div className="urgent-form-group">
+                        <label>УРОВЕНЬ ПРИОРИТЕТА</label>
+                        <div className="urgent-priority-buttons">
+                            <button className={cn('urgent-priority-btn', { active: priority === 'high' })}
+                                onClick={() => setPriority('high')}>
+                                <span className="urgent-dot"></span> Высокий (авария)
+                            </button>
+                            <button className={cn('urgent-priority-btn', { active: priority === 'low' })}
+                                onClick={() => setPriority('low')}>низкий</button>
+                        </div>
                     </div>
-                </form>
+                    <div className="urgent-form-group">
+                        <label>Имя клиента</label>
+                        <input type="text" className="urgent-form-input" value={form.client} onChange={set('client')} />
+                    </div>
+                    <div className="urgent-form-group">
+                        <label>Номер телефона</label>
+                        <input type="tel" className="urgent-form-input" value={form.phone} onChange={set('phone')} />
+                    </div>
+                    <div className="urgent-form-group">
+                        <label>Адрес объекта <span className="urgent-required">*</span></label>
+                        <input type="text" className="urgent-form-input" value={form.address} onChange={set('address')} />
+                    </div>
+                    <div className="urgent-form-group">
+                        <label>Тип неисправности</label>
+                        <div className="urgent-select-wrapper">
+                            <select className="urgent-form-input" value={form.fault} onChange={set('fault')}>
+                                <option value=""></option>
+                                <option value="internet">Нет интернета</option>
+                                <option value="tv">Нет ТВ</option>
+                                <option value="phone">Нет телефонии</option>
+                            </select>
+                            <i className="fa-solid fa-chevron-down urgent-select-icon"></i>
+                        </div>
+                    </div>
+                    <div className="urgent-form-group">
+                        <label>Дата, время</label>
+                        <div className="urgent-select-wrapper">
+                            <select className="urgent-form-input" value={form.when} onChange={set('when')}>
+                                <option value=""></option>
+                                <option value="now">Сейчас</option>
+                                <option value="later">Позже</option>
+                            </select>
+                            <i className="fa-solid fa-chevron-down urgent-select-icon"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="urgent-modal-footer">
+                    <button className="urgent-btn-submit" onClick={() => onSubmit({ ...form, priority })}>
+                        Назначить и перестроить
+                    </button>
+                    <button className="urgent-btn-cancel" onClick={onClose}>Отмена</button>
+                </div>
             </div>
         </div>,
         document.body
